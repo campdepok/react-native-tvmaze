@@ -18,7 +18,7 @@ const ListItemComp = (props) => {
                 <Text note>{type}</Text>
               </Body>
               <Right>
-    <Text note>{status}</Text>
+                <Text note>{status}</Text>
               </Right>
             </ListItem>
           </List>
@@ -27,4 +27,4 @@ const ListItemComp = (props) => {
     )
 }
 
-export default withNaListItemComp
+export default ListItemComp

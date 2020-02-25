@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, StyleSheet, TextInput, Button, Alert, TouchableOpacity } from 'react-native'
+import { View, KeyboardAvoidingView, ScrollView, Text, StyleSheet, TextInput, Button, Alert, TouchableOpacity } from 'react-native'
 
 
 const Login = (props) => {
@@ -11,7 +11,7 @@ const Login = (props) => {
   }
   
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       <View style={styles.sectionTitle}>
         <Text style={{fontSize:30, color: 'grey'}}>hello world</Text>
       </View>
@@ -28,20 +28,20 @@ const Login = (props) => {
       </View>
        </TouchableOpacity>
       </View>
-    </View>
+    </ScrollView>
   )
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fffeee',
     flexDirection: 'column'
   },
   sectionTitle: {
     flex:2,
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    paddingBottom: 100
   },
   sectionForm: {
     flex:3,
@@ -50,7 +50,8 @@ const styles = StyleSheet.create({
   },
   sectionButton: {
     flex:1,
-    alignItems: 'center'
+    alignItems: 'center',
+    paddingTop: 100
   },
   input: {
     backgroundColor: '#1b9094',

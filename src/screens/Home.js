@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Text, View, StyleSheet, Alert, FlatList, ActivityIndicator} from 'react-native'
 import ListItemComp from '../components/ListItemComp'
 import axios from 'axios'
-import { TextInput } from 'react-native-gesture-handler';
+import { TextInput, TouchableOpacity } from 'react-native-gesture-handler';
 import _ from 'lodash';
 
 export default class Home extends Component {
@@ -79,12 +79,15 @@ export default class Home extends Component {
         }
     }
     render() {
-        console.warn(this.props.route.params.data);
-        console.warn('hello')
         const {result, loading, error} = this.state
         return (
             <View style={styles.container}>
-                <TextInput placeholder="Search" onChangeText={(e)=>{this.onSearch(e)}}/>
+                <TouchableOpacity onPress={()=> this.props.navigation.navigate('AddItemPage')}>
+                    <View style={styles.btnAdd}>
+                        <Text style={styles.textAdd}>Add Item</Text>
+                    </View>
+                </TouchableOpacity>
+                <TextInput placeholder="Search" style={styles.search} onChangeText={(e)=>{this.onSearch(e)}}/>
                  {loading ? (
                     <ActivityIndicator size="large" color="#0000ff" />
                  ): error ? (
@@ -95,8 +98,8 @@ export default class Home extends Component {
                     <FlatList
                     data={result}
                     renderItem={({ item }) => <ListItemComp data={item} />}
-                   //  keyExtractor={item => item.id}
-         />
+                        //  keyExtractor={item => item.id}
+                    />
                  ) }
                  
             </View>
@@ -106,6 +109,27 @@ export default class Home extends Component {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1
+        flex: 1,
+        paddingTop: 10,
+    },
+    btnAdd: {
+        height: 50,
+        width: 130,
+        borderRadius: 5,
+        backgroundColor: 'salmon',
+        marginLeft: 5,
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+    search: {
+        borderWidth: 1,
+        borderColor: 'grey',
+        marginTop: 10,
+    },
+    textAdd: {
+        fontSize: 18,
+        fontWeight: '500',
+        color: 'white',
+
     }
 })
