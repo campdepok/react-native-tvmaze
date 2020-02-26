@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Text, View, StyleSheet, TextInput, Picker, Alert } from 'react-native'
+import { Text, View, StyleSheet, TextInput, Picker, Alert, Image } from 'react-native'
 import ImagePicker from 'react-native-image-picker';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import axios from 'axios';
@@ -15,6 +15,7 @@ export default class AddItemPage extends Component {
             price: '',
             stock: 0,
             loading: false,
+            image: null,
         }
     }
     handleChoosePhoto = () =>{
@@ -36,9 +37,10 @@ export default class AddItemPage extends Component {
               } else {
                 // You can also display the image using data:
                 // const source = { uri: 'data:image/jpeg;base64,' + response.data };
-             
+                const source = { uri: response.uri };
                 this.setState({
-                  avatarSource: response,
+                    image: source,
+                    avatarSource: response,
                 });
               }
             // }
@@ -49,6 +51,7 @@ export default class AddItemPage extends Component {
             this.setState({
                 loading: true
             })
+            console.warn(this.state.avatarSource.uri)
             const dataFile = new FormData()
             dataFile.append('name', this.state.name)
             dataFile.append('description', this.state.description)
@@ -85,9 +88,12 @@ export default class AddItemPage extends Component {
                 <TextInput style={styles.field} placeholder="Price" onChangeText={(price)=>this.setState({price})} /> 
                 <TextInput style={styles.field} placeholder="Stock" onChangeText={(stock)=>this.setState({stock})} />
                 <TouchableOpacity onPress={()=> this.handleChoosePhoto()}>
+                <View style={styles.sectionImage}>
                     <View style={styles.upload}>
                         <Text style={styles.txtupload}>Upload Image</Text>
                     </View>
+                <Image source={this.state.image} style={{width: 80, height: 80, marginRight: 80, borderRadius: 5, marginTop: 10}} />
+                </View>
                 </TouchableOpacity>
                 <Picker
                     selectedValue={this.state.id_category}
@@ -160,6 +166,10 @@ const styles = StyleSheet.create({
         fontSize: 20,
         fontWeight: 'bold',
         color: '#fff'
+    },
+    sectionImage: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
     }
 })
 
